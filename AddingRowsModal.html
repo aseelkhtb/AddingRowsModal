@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<style type="text/css">
+		#modal2,#modal2btn{
+			display: none;
+		}
+		.input-group-text{
+			background-color: red;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add New Rows
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal1">
+        <div class="d-flex justify-content-center my-4">
+		  <form class="range-field w-75">
+		    <input id="slider" class="border-0" type="range" min="0" max="10" value="0" />
+		  </form>
+		  <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan"></span>
+		</div>
+      </div>
+      <div class="modal-body" id="modal2">
+      	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="modal1btn" type="button" class="btn btn-primary" onclick="Modal2Fun()">Save changes</button>
+        <button id="modal2btn" type="button" class="btn btn-primary" onclick="Modal2Fun()"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+		    
+
+
+ -->
+<script type="text/javascript">
+	$(document).ready(function() {
+
+  const $valueSpan = $('.valueSpan');
+  const $value = $('#slider');
+  $valueSpan.html($value.val());
+  $value.on('input change', () => {
+
+    $valueSpan.html($value.val()+" Rows");
+  });
+});
+	var reqs_id=0;
+	var s=0;
+	function Modal2Fun() {
+		var x=parseInt(document.getElementById('slider').value);
+		s=x;
+		document.getElementById('modal2').style.display='block';
+		document.getElementById('modal1').style.display='none';
+		document.getElementById('modal2btn').style.display='block';
+		document.getElementById('modal1btn').style.display='none';
+		document.getElementById('modal2btn').innerHTML='Add more '+x+' Rows';
+		var mod2=document.getElementById('modal2');
+		for (var i = 0; i < x; i++) {
+			mod2.innerHTML+='<div class="input-group mb-3" id='+'req'+reqs_id+'>'
+			  +'<input type="text" class="form-control" aria-label="Recipient username" aria-describedby="basic-addon2">'
+			  +'<div class="input-group-append">'
+			    +'<a href="" class="input-group-text text-center" id="basic-addon2" onclick="removeElement('+reqs_id+'); return false;">X</a>'
+			  +'</div></div>';
+    		reqs_id++;
+		}
+	}
+	function removeElement(ev) {
+		debugger;
+    var field = document.getElementById("req"+ev);
+    field.parentNode.removeChild(field);
+  }
+</script>
+</body>
+</html>
